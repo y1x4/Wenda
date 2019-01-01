@@ -7,8 +7,6 @@
 
 ![image](example.png)
 
-![image](example2.png)
-
 ### 设计思路
 
 - **1.开发工具**：Git，Intelli J。涉及技术：Spring Boot，Velocity，MyBatis等。
@@ -31,5 +29,6 @@
 
 - 爬取和导入其他网站问题和回答的数据，solr搜索，打包以及服务器部署等
 
-## License
+## 关于作者
 
+* **[WangYixu](wangyixu.github.io)**
