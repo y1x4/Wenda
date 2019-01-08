@@ -17,10 +17,12 @@ public class RedisKeyUtils {
 
     private static String BIZ_TIMELINE = "TIMELINE";
 
+    // 赞某个问题或回答的 key
     public static String getLikeKey(int entityType, int entityId) {
         return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 
+    // 踩某个问题或回答的 key
     public static String getDisLikeKey(int entityType, int entityId) {
         return BIZ_DISLIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }

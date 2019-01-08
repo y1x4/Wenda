@@ -95,8 +95,10 @@ public class FollowService {
 
     private List<Integer> getIntIdsFromSet(Set<String> set) {
         List<Integer> res = new ArrayList<>();
-        for (String id : set) {
-            res.add(Integer.parseInt(id));
+        if (set != null) {
+            for (String id : set) {
+                res.add(Integer.parseInt(id));
+            }
         }
         return res;
     }

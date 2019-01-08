@@ -38,7 +38,7 @@ public class FeedController {
     @Autowired
     JedisAdapter jedisAdapter;
 
-    //推：从Redis队列中获取10个feeds - 取消关注的之前的feed还在
+    // 推：从Redis队列中获取10个feeds - 取消关注的之前的feed还在
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
@@ -54,7 +54,7 @@ public class FeedController {
         return "feeds";
     }
 
-    //拉：从关注的人里获取10条feeds
+    // 拉：从关注的人里获取10条feeds
     @RequestMapping(path = {"/pullfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPullFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;

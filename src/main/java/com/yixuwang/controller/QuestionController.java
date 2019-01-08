@@ -46,6 +46,7 @@ public class QuestionController {
     @Autowired
     EventProducer eventProducer;
 
+
     @RequestMapping(path = {"/question/add"}, method = {RequestMethod.GET})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
@@ -74,11 +75,14 @@ public class QuestionController {
         return WendaUtils.getJSONString(1, "失败");
     }
 
+
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
+        // 问题详情
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
 
+        // 回答列表
         List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment : commentList) {
@@ -96,8 +100,9 @@ public class QuestionController {
         }
         model.addAttribute("comments", vos);
 
-        List<ViewObject> followUsers = new ArrayList<ViewObject>();
-        // 获取关注的用户信息
+
+        // 获取关注此问题的用户信息
+        List<ViewObject> followUsers = new ArrayList<>();
         List<Integer> users = followService.getFollowers(EntityType.ENTITY_QUESTION, qid, 20);
         for (Integer userId : users) {
             ViewObject vo = new ViewObject();
@@ -111,6 +116,8 @@ public class QuestionController {
             followUsers.add(vo);
         }
         model.addAttribute("followUsers", followUsers);
+
+        // 是否关注
         if (hostHolder.getUser() != null) {
             model.addAttribute("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_QUESTION, qid));
         } else {
