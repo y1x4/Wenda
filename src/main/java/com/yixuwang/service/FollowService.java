@@ -22,7 +22,7 @@ public class FollowService {
     @Autowired
     JedisAdapter jedisAdapter;
 
-    //用户关注了某个实体，用户、问题、评论等
+    // 用户关注了某个实体，用户、问题等
     public boolean follow(int userId, int entityType, int entityId) {
         String followerKey = getFollowerKey(entityType, entityId);
         String followeeKey = getFolloweeKey(userId, entityType);
@@ -50,6 +50,7 @@ public class FollowService {
         return ret.size() == 2 && (Long) ret.get(0) > 0 && (Long) ret.get(1) > 0;
     }
 
+
     public List<Integer> getFollowers(int entityType, int entityId, int offset, int count) {
         String followerKey = getFollowerKey(entityType, entityId);
         return getIntIdsFromSet(jedisAdapter.zrevrange(followerKey, offset, offset + count));
@@ -58,6 +59,7 @@ public class FollowService {
     public List<Integer> getFollowers(int entityType, int entityId, int count) {
         return getFollowers(entityType, entityId, 0, count);
     }
+
 
     public List<Integer> getFollowees(int userId, int entityType, int offset, int count) {
         String followeeKey = getFolloweeKey(userId, entityType);
@@ -68,6 +70,7 @@ public class FollowService {
         return getFollowees(userId, entityType, 0, count);
     }
 
+
     public long getFollowerCount(int entityType, int entityId) {
         String followerKey = getFollowerKey(entityType, entityId);
         return jedisAdapter.zcard(followerKey);
@@ -77,6 +80,7 @@ public class FollowService {
         String followeeKey = getFolloweeKey(userId, entityType);
         return jedisAdapter.zcard(followeeKey);
     }
+
 
     //判断某用户是否关注某实体
     public boolean isFollower(int userId, int entityId, int entityType) {
@@ -92,6 +96,7 @@ public class FollowService {
     private String getFolloweeKey(int userId, int entityType) {
         return RedisKeyUtils.getFolloweeKey(userId, entityType);
     }
+
 
     private List<Integer> getIntIdsFromSet(Set<String> set) {
         List<Integer> res = new ArrayList<>();

@@ -61,7 +61,7 @@ public class FollowController {
                 .setActorId(hostHolder.getUser().getId()).setEntityId(userId)
                 .setEntityType(EntityType.ENTITY_USER).setEntityOwnerId(userId));
 
-        //返回关注的人数
+        // 返回关注的人数
         return WendaUtils.getJSONString(ret ? 0 : 1, String.valueOf(
                 followService.getFolloweeCount(hostHolder.getUser().getId(), EntityType.ENTITY_USER)));
     }
@@ -79,7 +79,7 @@ public class FollowController {
                 .setActorId(hostHolder.getUser().getId()).setEntityId(userId)
                 .setEntityType(EntityType.ENTITY_USER).setEntityOwnerId(userId));
 
-        //返回关注的人数
+        // 返回关注的人数
         return WendaUtils.getJSONString(ret ? 0 : 1, String.valueOf(
                 followService.getFolloweeCount(hostHolder.getUser().getId(), EntityType.ENTITY_USER)));
     }
@@ -109,6 +109,7 @@ public class FollowController {
         info.put("count", followService.getFollowerCount(EntityType.ENTITY_QUESTION, questionId));
         return WendaUtils.getJSONString(ret ? 0 : 1, info);
     }
+
 
     @RequestMapping(path = {"/unfollowQuestion"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -161,7 +162,7 @@ public class FollowController {
         return "followees";
     }
 
-    //获取其他user的信息，包括与登录用户的关注情况
+    // 获取其他user的信息，包括与登录用户的关注情况
     private List<ViewObject> getUsersInfo(int localUserId, List<Integer> userIds) {
         List<ViewObject> userInfos = new ArrayList<>();
         for (Integer uid : userIds) {
