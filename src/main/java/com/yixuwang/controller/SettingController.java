@@ -11,12 +11,14 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * Created by yixuwang on 2018/6/25.
+ * Created by yixu on 2018/6/25.
  */
 @Controller
 public class SettingController {
+
     @Autowired
     WendaService wendaService;
+
 
     @RequestMapping(path = {"/setting"}, method = {RequestMethod.GET})
     @ResponseBody

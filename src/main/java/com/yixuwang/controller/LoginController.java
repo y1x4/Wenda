@@ -51,7 +51,7 @@ public class LoginController {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 if (rememberme) {
-                    cookie.setMaxAge(3600*24*5);
+                    cookie.setMaxAge(3600*24*7);    // 记住账号，一周有效
                 }
                 response.addCookie(cookie);
                 if (StringUtils.isNotBlank(next))
@@ -93,13 +93,13 @@ public class LoginController {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 if (rememberme) {
-                    cookie.setMaxAge(3600*24*5);
+                    cookie.setMaxAge(3600*24*7);
                 }
                 response.addCookie(cookie);
 
                 // 登录成功，异步执行发送邮件
                 eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-                        //.setExt("username", username).setExt("email", "zjuyxy@qq.com")
+                        //.setExt("username", username).setExt("email", "yixu@qq.com")
                         .setExt("username", username).setExt("email", userService.getUser((int)map.get("userId")).getEmail())
                         .setActorId((int)map.get("userId")));
 

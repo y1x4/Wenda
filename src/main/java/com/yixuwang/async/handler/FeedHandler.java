@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  *
- * Created by nowcoder on 2018/7/3.
+ * Created by yixu on 2018/7/3.
  */
 @Component
 public class FeedHandler implements EventHandler {
@@ -86,6 +86,9 @@ public class FeedHandler implements EventHandler {
         }
         feedService.addFeed(feed);
 
+
+        /* 接下来是实现 推timeline */
+
         // 获得所有粉丝
         List<Integer> followers = followService.getFollowers(EntityType.ENTITY_USER, model.getActorId(), Integer.MAX_VALUE);
         // 系统队列
@@ -100,6 +103,6 @@ public class FeedHandler implements EventHandler {
 
     @Override
     public List<EventType> getSupportEventTypes() {
-        return Arrays.asList(new EventType[]{EventType.COMMENT, EventType.FOLLOW});
+        return Arrays.asList(new EventType[]{EventType.COMMENT, EventType.FOLLOW, EventType.LIKE});
     }
 }

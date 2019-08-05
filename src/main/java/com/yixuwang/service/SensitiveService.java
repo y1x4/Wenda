@@ -79,6 +79,7 @@ public class SensitiveService implements InitializingBean {
 
         while (position < text.length()) {
             char c = text.charAt(position);
+
             // 符号字符直接跳过
             if (isSymbol(c)) {
                 if (tempNode == rootNode) {

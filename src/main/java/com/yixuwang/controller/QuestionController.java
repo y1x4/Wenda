@@ -62,6 +62,7 @@ public class QuestionController {
             } else {
                 question.setUserId(hostHolder.getUser().getId());
             }
+
             if (questionService.addQuestion(question) > 0) {
                 eventProducer.fireEvent(new EventModel(EventType.ADD_QUESTION)
                         .setActorId(question.getUserId()).setEntityId(question.getId())
@@ -74,6 +75,7 @@ public class QuestionController {
         }
         return WendaUtils.getJSONString(1, "失败");
     }
+
 
 
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})

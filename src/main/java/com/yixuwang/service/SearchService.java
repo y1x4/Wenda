@@ -33,6 +33,7 @@ public class SearchService {
         query.setHighlightSimplePre(hlPre);
         query.setHighlightSimplePost(hlPos);
         query.set("hl.fl", QUESTION_TITLE_FIELD + "," + QUESTION_CONTENT_FIELD);
+
         QueryResponse response = client.query(query);
         for (Map.Entry<String, Map<String, List<String>>> entry : response.getHighlighting().entrySet()) {
             Question q = new Question();

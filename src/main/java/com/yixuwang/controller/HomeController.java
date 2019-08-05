@@ -41,6 +41,11 @@ public class HomeController {
     @Autowired
     HostHolder hostHolder;
 
+
+    /**
+     * 未登录时，默认按 id 降序（创建时间降序）获取 10 个问题，展示在首页。
+     *
+     */
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model,
                         @RequestParam(value = "pop", defaultValue = "0") int pop) {
@@ -48,6 +53,10 @@ public class HomeController {
         return "index";
     }
 
+
+    /**
+     * 用户个人中心，展示：粉丝数、关注数、问题数、回答数，以及提出的问题列表
+     */
     @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model, @PathVariable("userId") int userId) {
         model.addAttribute("vos", getQuestions(userId, 0, 10));
@@ -58,6 +67,7 @@ public class HomeController {
         vo.set("commentCount", commentService.getUserCommentCount(userId));
         vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
         vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
+
         if (hostHolder.getUser() != null) {
             vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
             vo.set("isSelf", hostHolder.getUser().getId() == userId);
@@ -66,10 +76,12 @@ public class HomeController {
             vo.set("isSelf", false);
         }
         model.addAttribute("profileUser", vo);
+
         return "profile";
     }
 
 
+    // 获取最新问题，还包括问题提出者和关注数
     private List<ViewObject> getQuestions(int userId, int offset, int limit) {
         List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
         List<ViewObject> vos = new ArrayList<>();

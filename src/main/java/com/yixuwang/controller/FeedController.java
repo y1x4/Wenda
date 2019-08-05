@@ -38,7 +38,7 @@ public class FeedController {
     @Autowired
     JedisAdapter jedisAdapter;
 
-    // 推：从Redis队列中获取10个feeds - 取消关注的之前的feed还在
+    // 推：用户从自己的timeline队列中获取10个feeds - 产生feed时，存入每个粉丝的队列中，取消关注之前的feed还在
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;

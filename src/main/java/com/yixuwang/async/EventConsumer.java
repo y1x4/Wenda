@@ -54,10 +54,11 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                // 不断扫描事件，进行处理
                 while(true) {
                     String key = RedisKeyUtils.getEventQueueKey();
-                    // 获取存储的(经过序列化的)事件event
-                    // 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+                    // 获取存储的(经过序列化的)事件 event
+                    // brpop() 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
                     List<String> events = jedisAdapter.brpop(0, key);
 
                     for (String message : events) {
